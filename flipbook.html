@@ -1,0 +1,337 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Birthday Gift</title></head><body style="margin:0"><div id="joey-flipbook" class="jf-root">
+  <style>
+    .jf-root{background-color:light-dark(#efe8dc,#171512);color:light-dark(#2b2620,#f4eee5);border-radius:0;width:100%;padding:clamp(18px,4vw,42px);box-sizing:border-box;font-family:Georgia,'Times New Roman',serif}
+    .jf-wrap{max-width:860px;margin:0 auto}
+    .jf-intro{text-align:center;margin-bottom:20px}
+    .jf-kicker{font:700 12px/1.2 system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;opacity:.62;margin-bottom:7px}
+    .jf-intro h2{font-size:clamp(24px,5vw,42px);line-height:1.05;margin:0 0 8px;font-weight:500}
+    .jf-intro p{font:400 14px/1.5 system-ui,sans-serif;opacity:.7;margin:0 auto;max-width:620px}
+    .jf-stage{display:flex;justify-content:center;padding:12px 0 22px}
+    .jf-stack{position:relative;width:min(100%,640px);aspect-ratio:4/3;touch-action:pan-y;user-select:none;min-width:0}
+    .jf-sheet{position:absolute;inset:0;border-radius:7px;background:#d9cfbf;border:1px solid rgba(60,48,35,.16)}
+    .jf-sheet:nth-child(1){transform:translate(12px,12px) rotate(.7deg)}
+    .jf-sheet:nth-child(2){transform:translate(8px,8px) rotate(-.5deg);background:#e4dacb}
+    .jf-sheet:nth-child(3){transform:translate(4px,4px) rotate(.25deg);background:#eee5d8}
+    .jf-page{position:absolute;inset:0;background:#fbf4e8;border:1px solid rgba(80,62,43,.24);border-radius:7px;overflow:hidden;box-shadow:0 14px 36px rgba(50,35,20,.16);transform-origin:left center;transition:transform 120ms ease,box-shadow 120ms ease}
+    .jf-page.flipping{transform:perspective(900px) rotateY(-7deg) translateX(2px);box-shadow:0 10px 24px rgba(50,35,20,.12)}
+    .jf-page svg{display:block;width:100%;height:100%}
+    .jf-page-num{position:absolute;right:14px;bottom:10px;font:500 11px/1 system-ui,sans-serif;color:#827461}
+    .jf-binding{position:absolute;left:10px;top:6%;bottom:6%;width:4px;border-radius:4px;background:rgba(84,62,39,.18);pointer-events:none}
+    .jf-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;align-items:center;margin-top:2px}
+    .jf-btn{appearance:none;border:1px solid light-dark(rgba(57,45,31,.25),rgba(255,255,255,.22));background:light-dark(#fffaf1,#2a2722);color:inherit;border-radius:999px;min-height:44px;padding:10px 16px;font:700 14px/1 system-ui,sans-serif;cursor:pointer}
+    .jf-btn:focus-visible,.jf-range:focus-visible,.jf-speed:focus-visible{outline:3px solid light-dark(#6f593e,#d7b98d);outline-offset:2px}
+    .jf-btn.primary{background:light-dark(#3d3429,#efe4d4);color:light-dark(#fffaf2,#211d18);border-color:transparent}
+    .jf-btn:active{transform:translateY(1px)}
+    .jf-scrub{margin:18px auto 0;max-width:640px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font:600 12px/1 system-ui,sans-serif;opacity:.86}
+    .jf-range{width:100%;accent-color:#756047}
+    .jf-speed{min-height:42px;border-radius:10px;border:1px solid light-dark(rgba(57,45,31,.2),rgba(255,255,255,.2));background:light-dark(#fffaf1,#2a2722);color:inherit;padding:0 10px;font:600 13px system-ui,sans-serif}
+    .jf-footer{display:flex;justify-content:center;gap:14px;align-items:center;flex-wrap:wrap;margin-top:16px;font:500 12px/1.4 system-ui,sans-serif;opacity:.67;text-align:center}
+    .jf-live{min-height:18px}
+    @media(max-width:520px){.jf-root{padding:18px 12px 26px}.jf-stage{padding-top:8px}.jf-stack{width:96%}.jf-controls{gap:8px}.jf-btn{padding:10px 13px}.jf-scrub{grid-template-columns:auto 1fr}.jf-speed{grid-column:1/-1;width:100%}}
+    @media(prefers-reduced-motion:reduce){.jf-page{transition:none}}
+  </style>
+
+  <div class="jf-wrap">
+    <div class="jf-intro">
+      <div class="jf-kicker">A tiny birthday flipbook</div>
+      <h2>Keep flipping, Joey.</h2>
+      <p>Swipe across the paper, tap the arrows, hold <strong>Flip ▶</strong>, or press Play to watch the little story move.</p>
+    </div>
+
+    <div class="jf-stage">
+      <div class="jf-stack" id="jfStack" tabindex="0" aria-label="Animated birthday flipbook. Swipe left or right to change frames.">
+        <div class="jf-sheet"></div><div class="jf-sheet"></div><div class="jf-sheet"></div>
+        <div class="jf-page" id="jfPage">
+          <svg id="jfSvg" viewBox="0 0 640 480" role="img" aria-label="Hand drawn birthday animation"></svg>
+          <div class="jf-binding"></div>
+          <div class="jf-page-num" id="jfPageNum">1 / 72</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="jf-controls">
+      <button type="button" class="jf-btn" id="jfPrev" aria-label="Previous frame">◀ Back</button>
+      <button type="button" class="jf-btn primary" id="jfHold">Flip ▶</button>
+      <button type="button" class="jf-btn" id="jfPlay">Play</button>
+      <button type="button" class="jf-btn" id="jfReset">Start over</button>
+    </div>
+
+    <div class="jf-scrub">
+      <span>Frame</span>
+      <input class="jf-range" id="jfRange" type="range" min="0" max="71" value="0" aria-label="Choose animation frame">
+      <select class="jf-speed" id="jfSpeed" aria-label="Playback speed">
+        <option value="125">8 fps</option>
+        <option value="83" selected>12 fps</option>
+        <option value="63">16 fps</option>
+      </select>
+    </div>
+
+    <div class="jf-footer">
+      <span>Tip: on a phone, swipe left quickly like you’re thumbing through paper.</span>
+      <span class="jf-live" id="jfLive" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('joey-flipbook');
+      const svg = root.querySelector('#jfSvg');
+      const page = root.querySelector('#jfPage');
+      const pageNum = root.querySelector('#jfPageNum');
+      const range = root.querySelector('#jfRange');
+      const prev = root.querySelector('#jfPrev');
+      const hold = root.querySelector('#jfHold');
+      const play = root.querySelector('#jfPlay');
+      const reset = root.querySelector('#jfReset');
+      const speed = root.querySelector('#jfSpeed');
+      const stack = root.querySelector('#jfStack');
+      const live = root.querySelector('#jfLive');
+      const total = 72;
+      let frame = 0;
+      let timer = null;
+      let holding = false;
+      let pointerStart = null;
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
+      const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+      function line(x1,y1,x2,y2,w=5){return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#302820" stroke-width="${w}" stroke-linecap="round"/>`;}
+      function circle(cx,cy,r,fill='none',w=5){return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}" stroke="#302820" stroke-width="${w}"/>`;}
+      function character(x,y,pose=0,scale=1){
+        const bob=Math.sin(pose*.85)*3;
+        const arm=Math.sin(pose*.9)*15;
+        const leg=Math.sin(pose*.9)*13;
+        return `<g transform="translate(${x} ${y+bob}) scale(${scale})">
+          ${circle(0,-55,19,'#fbf4e8',4)}
+          ${line(0,-36,0,25,5)}
+          ${line(0,-18,-26,-1-arm*.25,5)}
+          ${line(0,-18,27,-2+arm*.25,5)}
+          ${line(0,25,-18+leg*.25,62,5)}
+          ${line(0,25,18-leg*.25,62,5)}
+          <path d="M -8 -58 Q 0 -51 8 -58" fill="none" stroke="#302820" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="-6" cy="-62" r="2.2" fill="#302820"/><circle cx="6" cy="-62" r="2.2" fill="#302820"/>
+        </g>`;
+      }
+      function present(x,y,jiggle=0,open=0){
+        const j=Math.sin(jiggle*1.7)*3;
+        const lidY=-open*25;
+        const lidR=-open*8;
+        return `<g transform="translate(${x+j} ${y})">
+          <rect x="-55" y="-20" width="110" height="82" rx="3" fill="#ead9bf" stroke="#302820" stroke-width="5"/>
+          <line x1="0" y1="-20" x2="0" y2="62" stroke="#302820" stroke-width="5"/>
+          <g transform="translate(0 ${lidY}) rotate(${lidR})">
+            <rect x="-64" y="-34" width="128" height="23" rx="3" fill="#f3e6d1" stroke="#302820" stroke-width="5"/>
+            <path d="M0 -34 C-22 -72 -54 -61 -28 -32 M0 -34 C22 -72 54 -61 28 -32" fill="none" stroke="#302820" stroke-width="5" stroke-linecap="round"/>
+          </g>
+        </g>`;
+      }
+      function confetti(amount,rise){
+        const pts=[[265,235],[308,225],[350,245],[390,220],[430,250],[285,180],[340,175],[405,185],[455,205],[245,205],[375,150],[320,145]];
+        let out='';
+        for(let i=0;i<Math.min(amount,pts.length);i++){
+          const [x,y]=pts[i]; const yy=y-rise*(8+(i%4)*5); const rot=(i*31)%90;
+          if(i%3===0) out+=`<circle cx="${x}" cy="${yy}" r="5" fill="#b85d4c"/>`;
+          else if(i%3===1) out+=`<rect x="${x-4}" y="${yy-7}" width="8" height="14" rx="2" fill="#c6a24b" transform="rotate(${rot} ${x} ${yy})"/>`;
+          else out+=`<path d="M${x-6} ${yy} l12 -8" stroke="#637d74" stroke-width="5" stroke-linecap="round"/>`;
+        }
+        return out;
+      }
+      function heart(x,y,s){return `<path d="M${x} ${y+s*.28} C${x-s} ${y-s*.45},${x-s*.95} ${y+s*.65},${x} ${y+s*1.2} C${x+s*.95} ${y+s*.65},${x+s} ${y-s*.45},${x} ${y+s*.28}Z" fill="#b85d4c" stroke="#302820" stroke-width="3"/>`;}
+      function hydrangea(x,y,s=1){
+        const blooms=[[0,0],[-14,-7],[14,-6],[-8,12],[9,13],[-22,9],[22,8],[0,-15]];
+        let petals='';
+        blooms.forEach((b,i)=>{
+          const fill=i%3===0?'#8fa7c9':i%3===1?'#a9b9da':'#7896bd';
+          petals+=`<g transform="translate(${b[0]} ${b[1]})"><circle cx="0" cy="-5" r="6" fill="${fill}"/><circle cx="5" cy="0" r="6" fill="${fill}"/><circle cx="0" cy="5" r="6" fill="${fill}"/><circle cx="-5" cy="0" r="6" fill="${fill}"/><circle cx="0" cy="0" r="2.2" fill="#e8ddb7"/></g>`;
+        });
+        return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 22 C-2 48 -3 69 -8 92" fill="none" stroke="#65765c" stroke-width="5" stroke-linecap="round"/><path d="M-4 50 C-24 38 -31 49 -13 60" fill="#7f9471" stroke="#65765c" stroke-width="2"/><path d="M-5 64 C15 49 26 58 7 72" fill="#7f9471" stroke="#65765c" stroke-width="2"/>${petals}</g>`;
+      }
+      function hydrangeaBorder(){
+        return `${hydrangea(86,300,.82)}${hydrangea(132,326,.66)}${hydrangea(548,304,.8)}${hydrangea(505,330,.64)}`;
+      }
+      function avatarBadge(x,y,type,scale=1){
+        const face = `<circle cx="0" cy="-9" r="10" fill="#efc8b6" stroke="#6b5145" stroke-width="1.7"/>`;
+        const hair = `<path d="M-12 -13 C-9 -30, 10 -31, 14 -12 C12 -18, 6 -22, 0 -22 C-6 -22, -12 -18, -12 -13Z" fill="#2f2723"/>`;
+        const smile = `<path d="M-4 -6 Q0 -2 4 -6" fill="none" stroke="#6b5145" stroke-width="1.5" stroke-linecap="round"/>`;
+        const eyes = `<circle cx="-3.7" cy="-11" r="1.15" fill="#2f2723"/><circle cx="3.7" cy="-11" r="1.15" fill="#2f2723"/>`;
+        let body='';
+        if(type==='sew') body = `<path d="M-14 6 Q0 -2 14 6 L11 26 Q0 29 -11 26Z" fill="#8f7da8" stroke="#6b5145" stroke-width="1.6"/><rect x="-11" y="13" width="22" height="8" rx="2" fill="#a9b9da" stroke="#6b5145" stroke-width="1.2"/><rect x="-8" y="10" width="10" height="5" rx="1" fill="#d7dde7"/>`;
+        else if(type==='hydrangea') body = `<path d="M-14 6 Q0 -2 14 6 L11 28 Q0 31 -11 28Z" fill="#6c8aa2" stroke="#6b5145" stroke-width="1.6"/>${hydrangea(0,13,.26)}`;
+        else if(type==='mealprep') body = `<path d="M-14 6 Q0 -2 14 6 L11 28 Q0 31 -11 28Z" fill="#8f7da8" stroke="#6b5145" stroke-width="1.6"/><rect x="-12" y="12" width="10" height="7" rx="1.6" fill="#f3e6d1" stroke="#6b5145" stroke-width="1.1"/><rect x="2" y="12" width="10" height="7" rx="1.6" fill="#f3e6d1" stroke="#6b5145" stroke-width="1.1"/><rect x="-12" y="20" width="24" height="7" rx="1.6" fill="#f3e6d1" stroke="#6b5145" stroke-width="1.1"/>`;
+        else body = `<path d="M-14 6 Q0 -2 14 6 L11 28 Q0 31 -11 28Z" fill="#8f7da8" stroke="#6b5145" stroke-width="1.6"/>${heart(0,12,5)}`;
+        return `<g transform="translate(${x} ${y}) scale(${scale})" opacity=".28">
+          <circle cx="0" cy="0" r="36" fill="#fffaf2" stroke="#c9bdac" stroke-width="2"/>
+          <circle cx="0" cy="0" r="31" fill="#f5eee2" stroke="none"/>
+          ${face}${hair}${eyes}${smile}${body}
+        </g>`;
+      }
+      function avatarBackground(){
+        return `${avatarBadge(108,112,'sew',1)}${avatarBadge(530,112,'hydrangea',1)}${avatarBadge(110,222,'mealprep',1)}${avatarBadge(540,224,'heart',1)}`;
+      }
+      function oakHarborBackdrop(){
+        return `<g opacity=".78">
+          <path d="M80 245 Q150 208 220 226 T360 222 T560 242" fill="none" stroke="#90a5a4" stroke-width="3" stroke-linecap="round"/>
+          <path d="M82 252 Q155 233 230 246 T380 244 T558 254" fill="none" stroke="#b1c0bf" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92 238 L145 176 L196 232 Z" fill="#8f9787" stroke="#747c70" stroke-width="2"/>
+          <path d="M444 232 L494 170 L548 239 Z" fill="#8f9787" stroke="#747c70" stroke-width="2"/>
+          <path d="M139 207 C215 180 287 176 368 186 C430 194 471 209 504 219" fill="none" stroke="#4d5558" stroke-width="5" stroke-linecap="round"/>
+          <path d="M140 220 C215 195 289 192 369 201 C428 207 472 220 503 229" fill="none" stroke="#596164" stroke-width="4" stroke-linecap="round"/>
+          <line x1="182" y1="193" x2="182" y2="233" stroke="#4d5558" stroke-width="3"/>
+          <line x1="228" y1="183" x2="228" y2="219" stroke="#4d5558" stroke-width="3"/>
+          <line x1="275" y1="179" x2="275" y2="211" stroke="#4d5558" stroke-width="3"/>
+          <line x1="322" y1="180" x2="322" y2="211" stroke="#4d5558" stroke-width="3"/>
+          <line x1="369" y1="186" x2="369" y2="219" stroke="#4d5558" stroke-width="3"/>
+          <line x1="416" y1="196" x2="416" y2="226" stroke="#4d5558" stroke-width="3"/>
+          <path d="M147 174 L147 229 M497 168 L497 233" stroke="#4d5558" stroke-width="8" stroke-linecap="round"/>
+          <path d="M147 174 C225 114 420 112 497 168" fill="none" stroke="#4d5558" stroke-width="3.5"/>
+          <path d="M147 174 C168 193 179 199 182 207 M497 168 C475 193 460 203 454 211" fill="none" stroke="#4d5558" stroke-width="3"/>
+        </g>
+        <g>
+          <path d="M52 385 C58 340 52 306 63 270" fill="none" stroke="#6d5a43" stroke-width="8" stroke-linecap="round"/>
+          <path d="M63 287 C44 266 37 245 29 226 M64 286 C84 263 95 244 103 222" fill="none" stroke="#6d5a43" stroke-width="5" stroke-linecap="round"/>
+          <g fill="#7e9270" stroke="#65765c" stroke-width="2">
+            <circle cx="25" cy="218" r="22"/><circle cx="47" cy="205" r="24"/><circle cx="70" cy="214" r="23"/><circle cx="94" cy="206" r="22"/><circle cx="111" cy="224" r="20"/>
+          </g>
+          <path d="M585 385 C580 345 587 312 576 279" fill="none" stroke="#6d5a43" stroke-width="8" stroke-linecap="round"/>
+          <path d="M576 294 C557 272 548 253 542 233 M576 293 C595 269 606 249 614 226" fill="none" stroke="#6d5a43" stroke-width="5" stroke-linecap="round"/>
+          <g fill="#7e9270" stroke="#65765c" stroke-width="2">
+            <circle cx="536" cy="226" r="21"/><circle cx="557" cy="209" r="24"/><circle cx="580" cy="217" r="23"/><circle cx="604" cy="210" r="21"/><circle cx="620" cy="228" r="19"/>
+          </g>
+        </g>`;
+      }
+
+      function draw(f){
+        let body='';
+        body += `<rect width="640" height="480" fill="#fbf4e8"/>`;
+        body += oakHarborBackdrop();
+        body += `<path d="M55 384 Q180 377 295 384 T585 382" fill="none" stroke="#bcae9b" stroke-width="3" stroke-linecap="round"/>`;
+        body += `<g opacity=".2"><path d="M80 80 q35 -18 70 0" fill="none" stroke="#9f8c74" stroke-width="2"/><path d="M470 98 q38 18 75 -2" fill="none" stroke="#9f8c74" stroke-width="2"/></g>`;
+        body += hydrangeaBorder();
+        body += avatarBackground();
+
+        if(f<8){
+          const x=-60+f*18;
+          body+=character(x,320,f,1);
+          if(f<3) body+=`<text x="320" y="145" text-anchor="middle" font-family="Georgia" font-size="24" fill="#80715f" opacity="${.2+f*.18}">something is coming…</text>`;
+        } else if(f<20){
+          const t=(f-8)/11;
+          const x=80+t*220;
+          body+=character(x,320,f,1);
+          body+=present(470,320,0,0);
+          if(f>10) body+=`<path d="M${x+28} 235 q18 -20 34 0" fill="none" stroke="#302820" stroke-width="4" stroke-linecap="round"/><text x="${x+51}" y="218" font-family="Georgia" font-size="22" fill="#302820">?</text>`;
+        } else if(f<31){
+          const p=f-20;
+          const x=355+Math.sin(p*1.6)*5;
+          body+=character(x,317,p,1);
+          body+=present(470,320,p,0);
+          body+=`<path d="M380 264 Q405 ${244+Math.sin(p)*8} 430 267" fill="none" stroke="#302820" stroke-width="4" stroke-linecap="round"/>`;
+          if(f>26) body+=`<text x="320" y="135" text-anchor="middle" font-family="Georgia" font-size="26" fill="#6e6254">almost…</text>`;
+        } else if(f<39){
+          const p=f-31;
+          const open=clamp(p/4,0,1);
+          body+=character(345,300-p*2,p,1);
+          body+=present(470,320,0,open);
+          body+=confetti(p*2,p*1.4);
+          if(p>4) body+=`<path d="M334 208 q-20 -22 -42 -5" fill="none" stroke="#302820" stroke-width="4" stroke-linecap="round"/>`;
+        } else if(f<50){
+          const p=f-39;
+          body+=present(470,320,0,1);
+          body+=character(345,306,p,1);
+          body+=confetti(12,10+p*.7);
+          const alpha=clamp(p/4,0,1);
+          const y=128-Math.max(0,4-p)*3;
+          body+=`<text x="320" y="${y}" text-anchor="middle" font-family="Georgia" font-size="${34+p*.8}" font-weight="700" fill="#302820" opacity="${alpha}">HAPPY BIRTHDAY</text>`;
+        } else if(f<60) {
+          const p=f-50;
+          body+=present(470,326,0,1);
+          body+=character(340,310,0,1);
+          body+=confetti(12,18);
+          body+=`<text x="320" y="116" text-anchor="middle" font-family="Georgia" font-size="44" font-weight="700" fill="#302820">HAPPY BIRTHDAY</text>`;
+          const s=58+Math.min(p,5)*5;
+          body+=`<text x="320" y="190" text-anchor="middle" font-family="Georgia" font-size="${s}" font-weight="700" font-style="italic" fill="#b85d4c">JOEY</text>`;
+          if(p>3) body+=heart(320,228,16+Math.min(p-3,5)*2);
+        } else if(f<65) {
+          const p=f-60;
+          body+=`<text x="320" y="100" text-anchor="middle" font-family="Georgia" font-size="32" font-weight="700" fill="#302820">one more thing…</text>`;
+          const hSize=12+p*3;
+          body+=heart(320,210,hSize);
+          body+=character(390-p*8,320,p,1);
+          body+=`<path d="M${365-p*7} 255 Q350 238 333 232" fill="none" stroke="#302820" stroke-width="4" stroke-linecap="round"/>`;
+        } else {
+          const p=f-65;
+          const t=clamp(p/6,0,1);
+          const cx=350-(t*120);
+          const cy=318+(t*22);
+          const scale=1+(t*.62);
+          body+=`<text x="320" y="92" text-anchor="middle" font-family="Georgia" font-size="30" font-weight="700" fill="#302820" opacity="${1-t*.55}">for you, Ajonte.</text>`;
+          body+=character(cx,cy,p,scale);
+          const hx=cx-5;
+          const hy=cy-55*scale;
+          body+=heart(hx,hy,14+8*t);
+          body+=`<path d="M${cx-10*scale} ${cy-15*scale} Q${cx-5} ${cy-42*scale} ${hx} ${hy+10}" fill="none" stroke="#302820" stroke-width="${4+2*t}" stroke-linecap="round"/>`;
+          if(p>3) body+=`<text x="320" y="430" text-anchor="middle" font-family="Georgia" font-size="20" fill="#746654" opacity="${clamp((p-3)/3,0,1)}">Happy Birthday, Ajonte.</text>`;
+        }
+        svg.innerHTML=body;
+        pageNum.textContent=`${f+1} / ${total}`;
+        range.value=String(f);
+      }
+
+      function setFrame(n,announce=false){
+        frame=clamp(Number(n)||0,0,total-1);
+        page.classList.add('flipping');
+        draw(frame);
+        if(!reduced) setTimeout(()=>page.classList.remove('flipping'),80); else page.classList.remove('flipping');
+        if(announce) live.textContent=`Frame ${frame+1} of ${total}`;
+      }
+      function next(){
+        if(frame>=total-1){stop();return;}
+        setFrame(frame+1);
+      }
+      function stop(){
+        if(timer){clearInterval(timer);timer=null;}
+        holding=false;
+        hold.textContent='Flip ▶';
+        play.textContent='Play';
+      }
+      function startPlayback(){
+        stop();
+        if(frame>=total-1)setFrame(0);
+        const ms=clamp(parseInt(speed.value,10)||83,40,500);
+        timer=setInterval(next,ms);
+        play.textContent='Pause';
+      }
+      function startHold(){
+        if(holding)return;
+        holding=true;
+        if(frame>=total-1)setFrame(0);
+        hold.textContent='Flipping…';
+        const ms=clamp(parseInt(speed.value,10)||83,40,500);
+        timer=setInterval(next,ms);
+      }
+
+      prev.addEventListener('click',()=>{stop();setFrame(frame-1,true);});
+      reset.addEventListener('click',()=>{stop();setFrame(0,true);});
+      play.addEventListener('click',()=>{if(timer&&!holding)stop();else startPlayback();});
+      range.addEventListener('input',e=>{stop();setFrame(e.target.value);});
+      speed.addEventListener('change',()=>{if(timer&&!holding)startPlayback();});
+      hold.addEventListener('pointerdown',e=>{e.preventDefault();startHold();});
+      ['pointerup','pointercancel','pointerleave'].forEach(ev=>hold.addEventListener(ev,()=>{if(holding)stop();}));
+      hold.addEventListener('click',()=>{if(!holding){stop();setFrame(frame+1,true);}});
+
+      stack.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
+      stack.addEventListener('pointerup',e=>{
+        if(!pointerStart)return;
+        const dx=e.clientX-pointerStart.x; const dy=e.clientY-pointerStart.y;
+        pointerStart=null;
+        if(Math.abs(dx)>35&&Math.abs(dx)>Math.abs(dy)){stop();setFrame(frame+(dx<0?1:-1),true);}
+      });
+      stack.addEventListener('keydown',e=>{
+        if(e.key==='ArrowRight'){e.preventDefault();stop();setFrame(frame+1,true);}
+        if(e.key==='ArrowLeft'){e.preventDefault();stop();setFrame(frame-1,true);}
+        if(e.key===' '){e.preventDefault();if(timer)stop();else startPlayback();}
+      });
+      draw(0);
+    })();
+  </script>
+</div></body></html>
