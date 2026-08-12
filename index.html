@@ -1,1 +1,62 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Happy Birthday</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#efe8dd;color:#2c2822;font-family:Georgia,'Times New Roman',serif}.wrap{width:min(90%,680px);padding:40px 20px;text-align:center}h1{font-size:clamp(42px,9vw,76px);font-weight:500;margin:0 0 8px;color:#684e50}p{font-family:system-ui,sans-serif;
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday Ajonte</title>
+<style>
+:root{--cream:#f5ede2;--ink:#2b2521;--wine:#684e50;--denim:#87a7ba;--denim-dark:#66879a;--gold:#d8ad58;--pink:#c6848b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(180deg,#efe7db 0%,#f8f1e8 55%,#eee4d8 100%);color:var(--ink);font-family:Georgia,'Times New Roman',serif;overflow-x:hidden;position:relative}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(circle at 20% 20%,rgba(104,78,80,.08) 0 1px,transparent 1.5px),radial-gradient(circle at 80% 70%,rgba(104,78,80,.07) 0 1px,transparent 1.5px);background-size:28px 28px,34px 34px;opacity:.7}
+.stage{position:relative;min-height:100vh;display:grid;place-items:center;padding:54px 18px 70px;isolation:isolate}
+.wrap{position:relative;z-index:3;width:min(92%,700px);padding:46px 24px 38px;text-align:center;background:rgba(255,250,242,.84);border:1px solid rgba(104,78,80,.14);border-radius:30px;box-shadow:0 20px 55px rgba(70,50,40,.13);backdrop-filter:blur(3px)}
+.kicker{font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.19em;text-transform:uppercase;color:#806e63;margin-bottom:8px}
+h1{font-size:clamp(44px,9vw,78px);font-weight:500;margin:0 0 10px;color:var(--wine);line-height:.98;font-style:italic}
+.subtitle{font:500 clamp(16px,3vw,20px)/1.5 system-ui,sans-serif;color:#665b52;margin:0 auto 28px;max-width:520px}
+.links{display:grid;gap:13px;max-width:520px;margin:0 auto}
+a.gift{display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;color:#2c2722;background:#fffaf2;border:1px solid rgba(104,78,80,.16);border-radius:18px;padding:17px 19px;box-shadow:0 8px 22px rgba(66,46,35,.08);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+a.gift:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(66,46,35,.13);border-color:rgba(104,78,80,.32)}
+.gift strong{font:800 15px/1.2 system-ui,sans-serif}.gift span{font:500 13px/1.35 system-ui,sans-serif;color:#796d64;text-align:left;display:block;margin-top:4px}.arrow{font:900 21px/1 system-ui,sans-serif;color:var(--wine)}
+.note{font:600 12px/1.5 system-ui,sans-serif;color:#8b7c70;margin-top:20px}
+.sticker{position:absolute;z-index:1;width:116px;height:142px;filter:drop-shadow(0 9px 9px rgba(79,56,43,.12));transform:rotate(var(--r));opacity:.96;pointer-events:none}
+.sticker.small{width:88px;height:110px;opacity:.88}.s1{left:max(2vw,14px);top:7vh;--r:-9deg}.s2{right:max(2vw,12px);top:11vh;--r:8deg}.s3{left:max(3vw,24px);bottom:8vh;--r:7deg}.s4{right:max(3vw,22px);bottom:6vh;--r:-8deg}.s5{left:7vw;top:46%;--r:-5deg}.s6{right:7vw;top:49%;--r:6deg}
+.spark{position:absolute;z-index:1;font-family:system-ui,sans-serif;color:var(--gold);opacity:.8;pointer-events:none}.sp1{left:16%;top:15%;font-size:30px;transform:rotate(-14deg)}.sp2{right:15%;top:31%;font-size:25px;color:var(--pink)}.sp3{left:14%;bottom:24%;font-size:24px;color:var(--pink)}.sp4{right:18%;bottom:17%;font-size:28px}
+.avatar{width:100%;height:100%;position:relative}
+.avatar .halo{position:absolute;left:8%;right:8%;top:1%;bottom:2%;background:#fffdf9;border:5px solid #fff;border-radius:48% 52% 46% 54% / 38% 40% 60% 62%;box-shadow:0 0 0 1px rgba(104,78,80,.08)}
+.avatar .hair{position:absolute;left:26%;top:10%;width:48%;height:44%;background:#201c1b;border-radius:48% 52% 42% 48%;z-index:2}
+.avatar .braid{position:absolute;top:24%;width:7px;height:47%;background:#27211f;border-radius:8px;z-index:6;box-shadow:0 7px 0 #27211f,0 14px 0 #27211f,0 21px 0 #27211f}.avatar .b1{left:29%;transform:rotate(5deg)}.avatar .b2{left:36%;transform:rotate(-3deg)}.avatar .b3{right:31%;transform:rotate(-5deg)}.avatar .b4{right:38%;transform:rotate(4deg)}
+.avatar .face{position:absolute;left:32%;top:18%;width:36%;height:33%;background:#8a5239;border-radius:48% 48% 46% 46%;z-index:4}.avatar .eye{position:absolute;top:43%;width:4px;height:5px;background:#201a18;border-radius:50%;z-index:7}.avatar .e1{left:42%}.avatar .e2{right:42%}.avatar .smile{position:absolute;left:45%;top:43%;width:12%;height:8%;border-bottom:2px solid #fff;border-radius:50%;z-index:7}
+.avatar .neck{position:absolute;left:43%;top:47%;width:14%;height:12%;background:#8a5239;z-index:3}
+.avatar .jacket{position:absolute;left:19%;top:53%;width:62%;height:38%;background:var(--denim);border-radius:28% 28% 18% 18%;z-index:3;border:2px solid rgba(73,103,118,.45)}
+.avatar .jacket:before,.avatar .jacket:after{content:"";position:absolute;top:6%;width:42%;height:90%;border-top:2px solid rgba(255,255,255,.35)}.avatar .jacket:before{left:6%;border-right:2px solid rgba(255,255,255,.3);transform:skewX(-7deg)}.avatar .jacket:after{right:6%;border-left:2px solid rgba(255,255,255,.3);transform:skewX(7deg)}
+.avatar .shirt{position:absolute;left:40%;top:56%;width:20%;height:26%;background:#24211f;z-index:4;clip-path:polygon(0 0,100% 0,78% 100%,22% 100%)}
+.avatar .hand{position:absolute;width:17%;height:13%;background:#8a5239;border-radius:48%;z-index:7}.avatar .h1{left:12%;top:66%;transform:rotate(-18deg)}.avatar .h2{right:12%;top:66%;transform:rotate(18deg)}
+.avatar .heart{position:absolute;right:6%;top:4%;font:900 18px/1 system-ui,sans-serif;color:var(--pink);z-index:8}.avatar .star{position:absolute;left:5%;bottom:4%;font:900 18px/1 system-ui,sans-serif;color:var(--gold);z-index:8}
+@media(max-width:760px){.stage{padding-top:110px;padding-bottom:110px}.wrap{padding:38px 17px 30px}.sticker{width:84px;height:104px;opacity:.78}.sticker.small{width:70px;height:88px}.s1{top:18px}.s2{top:26px}.s3{bottom:18px}.s4{bottom:24px}.s5,.s6{display:none}.spark{opacity:.55}.sp1{left:24%;top:6%}.sp2{right:25%;top:8%}.sp3{left:24%;bottom:6%}.sp4{right:25%;bottom:7%}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="sticker s1"><div class="avatar"><div class="halo"></div><div class="hair"></div><div class="face"></div><div class="neck"></div><div class="jacket"></div><div class="shirt"></div><div class="braid b1"></div><div class="braid b2"></div><div class="braid b3"></div><div class="braid b4"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="hand h1"></div><div class="hand h2"></div><div class="heart">♡</div><div class="star">✦</div></div></div>
+  <div class="sticker small s2"><div class="avatar"><div class="halo"></div><div class="hair"></div><div class="face"></div><div class="neck"></div><div class="jacket"></div><div class="shirt"></div><div class="braid b1"></div><div class="braid b2"></div><div class="braid b3"></div><div class="braid b4"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="heart">♡</div></div></div>
+  <div class="sticker s3"><div class="avatar"><div class="halo"></div><div class="hair"></div><div class="face"></div><div class="neck"></div><div class="jacket"></div><div class="shirt"></div><div class="braid b1"></div><div class="braid b2"></div><div class="braid b3"></div><div class="braid b4"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="hand h1"></div><div class="heart">♡</div></div></div>
+  <div class="sticker small s4"><div class="avatar"><div class="halo"></div><div class="hair"></div><div class="face"></div><div class="neck"></div><div class="jacket"></div><div class="shirt"></div><div class="braid b1"></div><div class="braid b2"></div><div class="braid b3"></div><div class="braid b4"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="star">✦</div></div></div>
+  <div class="sticker small s5"><div class="avatar"><div class="halo"></div><div class="hair"></div><div class="face"></div><div class="neck"></div><div class="jacket"></div><div class="shirt"></div><div class="braid b1"></div><div class="braid b2"></div><div class="braid b3"></div><div class="braid b4"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="heart">♡</div></div></div>
+  <div class="sticker small s6"><div class="avatar"><div class="halo"></div><div class="hair"></div><div class="face"></div><div class="neck"></div><div class="jacket"></div><div class="shirt"></div><div class="braid b1"></div><div class="braid b2"></div><div class="braid b3"></div><div class="braid b4"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="star">✦</div></div></div>
+  <div class="spark sp1">✦</div><div class="spark sp2">♡</div><div class="spark sp3">♡</div><div class="spark sp4">✦</div>
+
+  <main class="wrap">
+    <div class="kicker">August 12</div>
+    <h1>Happy Birthday, Ajonte</h1>
+    <p class="subtitle">A few little things made just for you.</p>
+    <div class="links">
+      <a class="gift" href="flipbook.html"><div><strong>Animated Birthday Flipbook</strong><span>A little hand-drawn birthday story.</span></div><div class="arrow">›</div></a>
+      <a class="gift" href="birthday-book.html"><div><strong>Your Birthday Book</strong><span>A few things I wanted you to know.</span></div><div class="arrow">›</div></a>
+      <a class="gift" href="flip-cards.html"><div><strong>Jon’s Flip Cards</strong><span>Your birthday word game.</span></div><div class="arrow">›</div></a>
+    </div>
+    <div class="note">Made especially for you ♡</div>
+  </main>
+</div>
+</body>
+</html>
