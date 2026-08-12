@@ -6,6 +6,7 @@
 <title>Happy Birthday Ajonte</title>
 <style>
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{margin:0;min-height:100%;background:#bca6d9}
 body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;justify-content:center;align-items:flex-start;overflow-x:hidden}
 .cover{position:relative;width:min(100vw,768px);margin:0 auto;background:#bca6d9;box-shadow:0 0 40px rgba(55,35,75,.18)}
@@ -16,6 +17,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 .flipbook{left:38.5%;top:88.1%;width:23%;height:9.7%}
 .cards{left:64%;top:88.1%;width:22.5%;height:9.7%}
 .enter{left:33%;top:65.4%;width:34%;height:6.2%;border-radius:999px}
+.gift-anchor{position:absolute;left:0;top:84%;width:1px;height:1px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(min-width:769px){body{padding:24px 0}.cover{border-radius:24px;overflow:hidden}}
 </style>
@@ -23,7 +25,8 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 <body>
 <main class="cover" aria-label="Ajonte birthday gifts">
   <img src="ChatGPT%20Image%20Aug%2012%2C%202026%2C%2012_00_23%20PM.png" alt="Cute illustrated birthday cover for Ajonte with chibi versions of her writing, sewing, drawing, journaling, meal prepping and enjoying a warm drink.">
-  <a class="hotspot enter" href="birthday-book.html" aria-label="Enter Ajonte's birthday gifts"><span class="sr-only">Enter your gifts</span></a>
+  <span id="gifts" class="gift-anchor" aria-hidden="true"></span>
+  <a class="hotspot enter" href="#gifts" aria-label="Show Ajonte's birthday gift choices"><span class="sr-only">Enter your gifts</span></a>
   <a class="hotspot book" href="birthday-book.html" aria-label="Open Birthday Book"><span class="sr-only">Birthday Book</span></a>
   <a class="hotspot flipbook" href="flipbook.html" aria-label="Open Animated Flipbook"><span class="sr-only">Flipbook</span></a>
   <a class="hotspot cards" href="flip-cards.html" aria-label="Open Flip Cards"><span class="sr-only">Flip Cards</span></a>
