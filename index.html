@@ -13,12 +13,9 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 .hotspot{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;-webkit-tap-highlight-color:transparent}
 .hotspot:focus-visible{outline:4px solid #fff;outline-offset:4px;box-shadow:0 0 0 8px rgba(104,74,155,.75)}
 .gift{top:88.1%;height:9.7%;border-radius:50%;background:#fff8ef;border:2px solid rgba(104,74,155,.16);box-shadow:0 6px 18px rgba(74,51,95,.12);color:#684a8f;font-family:Georgia,'Times New Roman',serif;font-weight:700;line-height:1.06;padding:8px;font-size:clamp(11px,2.1vw,16px)}
-.flipbook{left:13.5%;width:22.5%}
-.book{left:38.5%;width:23%}
-.cards{left:64%;width:22.5%;font-size:clamp(9px,1.75vw,13px)}
+.flipbook{left:13.5%;width:22.5%}.book{left:38.5%;width:23%}.cards{left:64%;width:22.5%;font-size:clamp(9px,1.75vw,13px)}
 .enter{left:33%;top:65.4%;width:34%;height:6.2%;border-radius:999px;background:transparent}
-.game{left:31%;top:80.5%;width:38%;height:5.6%;border-radius:999px;background:linear-gradient(180deg,#fffaf3,#f1e5ff);border:2px solid rgba(104,74,155,.22);box-shadow:0 7px 20px rgba(74,51,95,.18);color:#684a8f;font-family:Georgia,'Times New Roman',serif;font-weight:800;font-size:clamp(11px,2.1vw,16px);letter-spacing:.01em}
-.game::before{content:'🎲';margin-right:.45em;font-size:1.05em}
+.game{left:31%;top:80.5%;width:38%;height:5.6%;border-radius:999px;background:linear-gradient(180deg,#fffaf3,#f1e5ff);border:2px solid rgba(104,74,155,.22);box-shadow:0 7px 20px rgba(74,51,95,.18);color:#684a8f;font-family:Georgia,'Times New Roman',serif;font-weight:800;font-size:clamp(11px,2.1vw,16px);letter-spacing:.01em}.game::before{content:'🎲';margin-right:.45em;font-size:1.05em}
 .music-control{position:fixed;right:14px;top:max(14px,env(safe-area-inset-top));z-index:1001;border:1px solid rgba(104,74,155,.25);background:rgba(255,248,239,.94);color:#684a8f;border-radius:999px;padding:10px 14px;font-weight:800;box-shadow:0 6px 20px rgba(55,35,75,.18);backdrop-filter:blur(8px)}
 .site-view{position:fixed;inset:0;z-index:1000;background:#bca6d9;display:none;flex-direction:column}.site-view.open{display:flex}.site-bar{height:58px;min-height:58px;padding:8px 12px;display:flex;align-items:center;gap:10px;background:rgba(90,64,126,.96);color:#fff;box-shadow:0 2px 14px rgba(0,0,0,.16)}.site-bar button{border:0;background:#fff;color:#684a8f;border-radius:999px;padding:9px 14px;font-weight:800}.site-title{font-family:Georgia,'Times New Roman',serif;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.site-frame{border:0;width:100%;height:calc(100% - 58px);background:#fff}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(min-width:769px){body{padding:24px 0}.cover{border-radius:24px;overflow:hidden}}
@@ -41,35 +38,35 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 <script>
 (()=>{
  const musicBtn=document.getElementById('siteMusic'),view=document.getElementById('siteView'),frame=document.getElementById('siteFrame'),title=document.getElementById('siteTitle');
- let audioCtx=null,masterGain=null,musicGain=null,musicTimer=null,musicOn=localStorage.getItem('ajonteMusic')!=='off',musicStarted=false,barIndex=0;
+ let ctx=null,master=null,musicOn=localStorage.getItem('ajonteMusic')!=='off',timer=null,started=false,bar=0;
  musicBtn.textContent=musicOn?'♫ Music: On':'♫ Music: Off';
- function ensureAudio(){if(audioCtx)return;const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioCtx=new Ctx();masterGain=audioCtx.createGain();masterGain.gain.value=.28;masterGain.connect(audioCtx.destination);musicGain=audioCtx.createGain();musicGain.gain.value=.13;musicGain.connect(masterGain)}
- function note(freq,start,dur,vol=.08,type='sine',dest=null,attack=.025){ensureAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,start);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(vol,start+attack);g.gain.exponentialRampToValueAtTime(.0001,start+dur);o.connect(g);g.connect(dest||masterGain);o.start(start);o.stop(start+dur+.08)}
- function chord(freqs,start,dur,vol=.018){freqs.forEach((f,i)=>note(f,start+i*.018,dur,vol,i%2?'sine':'triangle',musicGain,.045))}
- const bars=[
-   {bass:130.81,ch:[164.81,196,246.94,293.66],mel:[329.63,392,440,493.88]},
-   {bass:110,ch:[146.83,185,220,277.18],mel:[293.66,369.99,440,493.88]},
-   {bass:146.83,ch:[174.61,220,261.63,329.63],mel:[349.23,440,493.88,523.25]},
-   {bass:98,ch:[123.47,146.83,185,220],mel:[293.66,349.23,392,466.16]}
+ function init(){if(ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ctx=new AC();master=ctx.createGain();master.gain.value=.45;master.connect(ctx.destination)}
+ function osc(freq,t,dur,vol,type='sine',cut=1800){init();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();o.type=type;o.frequency.value=freq;f.type='lowpass';f.frequency.value=cut;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(f);f.connect(g);g.connect(master);o.start(t);o.stop(t+dur+.05)}
+ function noise(t,dur,vol,high=4000){init();if(!ctx)return;const len=Math.floor(ctx.sampleRate*dur),buf=ctx.createBuffer(1,len,ctx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<len;i++)data[i]=Math.random()*2-1;const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=buf;f.type='highpass';f.frequency.value=high;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);s.connect(f);f.connect(g);g.connect(master);s.start(t)}
+ function kick(t,vol=.12){init();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(115,t);o.frequency.exponentialRampToValueAtTime(48,t+.16);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+.22);o.connect(g);g.connect(master);o.start(t);o.stop(t+.24)}
+ function snare(t){noise(t,.15,.04,1000);osc(180,t,.11,.015,'triangle',900)}
+ function hat(t,accent=false){noise(t,.055,accent?.016:.010,5500)}
+ function chord(freqs,t,dur=.95,vol=.018){freqs.forEach((f,i)=>osc(f,t+i*.012,dur,vol,i%2?'triangle':'sine',1250))}
+ const progression=[
+  {bass:65.41,ch:[130.81,164.81,196,246.94,293.66]},
+  {bass:73.42,ch:[146.83,174.61,220,261.63,329.63]},
+  {bass:55,ch:[110,130.81,164.81,196,246.94]},
+  {bass:61.74,ch:[123.47,146.83,185,220,293.66]}
  ];
- function scheduleMusicBar(){
-   if(!musicOn||!audioCtx)return;
-   const now=audioCtx.currentTime+.05,b=bars[barIndex%bars.length];barIndex++;
-   note(b.bass,now,3.9,.026,'sine',musicGain,.04);
-   chord(b.ch,now,.95,.013);
-   chord(b.ch.map(f=>f*1.002),now+2.05,.82,.009);
-   const swing=[0,.42,.78,1.22,1.58,2.02,2.38,2.82,3.18];
-   const picks=[0,1,2,1,3,2,1,0,2];
-   swing.forEach((off,i)=>note(b.mel[picks[i]],now+off,.34,.031,i%3===0?'triangle':'sine',musicGain,.018));
-   note(b.bass*2,now+1.18,.34,.013,'triangle',musicGain,.015);
-   note(b.bass*1.5,now+2.82,.34,.012,'triangle',musicGain,.015);
+ function scheduleBar(){if(!ctx||!musicOn)return;const t=ctx.currentTime+.06,b=progression[bar%progression.length];bar++;
+   chord(b.ch,t,.92,.012); chord(b.ch.map(f=>f*1.002),t+2.02,.72,.008);
+   osc(b.bass,t,1.2,.042,'sine',420);osc(b.bass*1.5,t+1.52,.7,.022,'sine',420);osc(b.bass,t+2.9,.78,.032,'sine',420);
+   kick(t,.10); kick(t+1.86,.075); kick(t+3.12,.09);
+   snare(t+.94); snare(t+2.82);
+   const hats=[0,.47,.94,1.41,1.88,2.35,2.82,3.29];hats.forEach((x,i)=>hat(t+x,i%2===1));
+   if(bar%2===0){const melody=[329.63,293.66,246.94,220];[.3,1.18,2.48,3.34].forEach((x,i)=>osc(melody[i],t+x,.32,.014,'triangle',1500))}
  }
- function startMusic(){ensureAudio();if(!audioCtx||!musicOn)return;if(audioCtx.state==='suspended')audioCtx.resume();if(musicStarted)return;musicStarted=true;scheduleMusicBar();musicTimer=setInterval(scheduleMusicBar,3800)}
- function stopMusic(){musicStarted=false;if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
+ function startMusic(){init();if(!ctx||!musicOn)return;if(ctx.state==='suspended')ctx.resume();if(started)return;started=true;scheduleBar();timer=setInterval(scheduleBar,3760)}
+ function stopMusic(){started=false;if(timer){clearInterval(timer);timer=null}}
  function setMusic(on){musicOn=on;localStorage.setItem('ajonteMusic',on?'on':'off');musicBtn.textContent=on?'♫ Music: On':'♫ Music: Off';if(on)startMusic();else stopMusic()}
  musicBtn.addEventListener('click',()=>setMusic(!musicOn));
  document.addEventListener('pointerdown',()=>{if(musicOn)startMusic()},{once:true});
- document.querySelectorAll('.site-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();if(musicOn)startMusic();title.textContent=a.dataset.title||"Ajonte's Birthday";frame.src=a.getAttribute('href');view.classList.add('open');view.setAttribute('aria-hidden','false');musicBtn.style.display='block'}));
+ document.querySelectorAll('.site-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();if(musicOn)startMusic();title.textContent=a.dataset.title||"Ajonte's Birthday";frame.src=a.getAttribute('href');view.classList.add('open');view.setAttribute('aria-hidden','false')}));
  document.getElementById('backHome').addEventListener('click',()=>{view.classList.remove('open');view.setAttribute('aria-hidden','true');frame.src='';title.textContent="Ajonte's Birthday"});
  frame.addEventListener('load',()=>{try{const b=frame.contentDocument&&frame.contentDocument.getElementById('musicBtn');if(b&&/On/i.test(b.textContent))b.click()}catch(e){}});
 })();
