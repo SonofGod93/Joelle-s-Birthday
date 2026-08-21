@@ -20,7 +20,6 @@ window.AJONTE_DEVOTIONALS = [
       "There are pleasures forever because there is no end to God.",
       "Life with Him is not an empty road marked only by restrictions. The boundaries reveal a path, the path leads into His presence, and in His presence we discover that holiness was never the enemy of pleasure. It was the road to the deepest kind of it."
     ],
-    reflection: "Am I asking God to bless the path I have chosen, or am I allowing Him to make the path of life known to me?",
-    author: "Tre'Von"
+    reflection: "Am I asking God to bless the path I have chosen, or am I allowing Him to make the path of life known to me?"
   }
 ];
