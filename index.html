@@ -43,25 +43,28 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
  const musicBtn=document.getElementById('siteMusic'),view=document.getElementById('siteView'),frame=document.getElementById('siteFrame'),title=document.getElementById('siteTitle');
  let audioCtx=null,masterGain=null,musicGain=null,musicTimer=null,musicOn=localStorage.getItem('ajonteMusic')!=='off',musicStarted=false,barIndex=0;
  musicBtn.textContent=musicOn?'♫ Music: On':'♫ Music: Off';
- function ensureAudio(){if(audioCtx)return;const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioCtx=new Ctx();masterGain=audioCtx.createGain();masterGain.gain.value=.3;masterGain.connect(audioCtx.destination);musicGain=audioCtx.createGain();musicGain.gain.value=.12;musicGain.connect(masterGain)}
- function note(freq,start,dur,vol=.08,type='sine',dest=null){ensureAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,start);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(vol,start+.18);g.gain.exponentialRampToValueAtTime(.0001,start+dur);o.connect(g);g.connect(dest||masterGain);o.start(start);o.stop(start+dur+.08)}
- const progressions=[
-   {bass:146.83,tones:[220,293.66,369.99,440,493.88]},
-   {bass:110,tones:[220,261.63,329.63,392,440]},
-   {bass:130.81,tones:[196,261.63,329.63,392,440]},
-   {bass:98,tones:[196,246.94,293.66,369.99,440]}
+ function ensureAudio(){if(audioCtx)return;const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioCtx=new Ctx();masterGain=audioCtx.createGain();masterGain.gain.value=.28;masterGain.connect(audioCtx.destination);musicGain=audioCtx.createGain();musicGain.gain.value=.13;musicGain.connect(masterGain)}
+ function note(freq,start,dur,vol=.08,type='sine',dest=null,attack=.025){ensureAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,start);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(vol,start+attack);g.gain.exponentialRampToValueAtTime(.0001,start+dur);o.connect(g);g.connect(dest||masterGain);o.start(start);o.stop(start+dur+.08)}
+ function chord(freqs,start,dur,vol=.018){freqs.forEach((f,i)=>note(f,start+i*.018,dur,vol,i%2?'sine':'triangle',musicGain,.045))}
+ const bars=[
+   {bass:130.81,ch:[164.81,196,246.94,293.66],mel:[329.63,392,440,493.88]},
+   {bass:110,ch:[146.83,185,220,277.18],mel:[293.66,369.99,440,493.88]},
+   {bass:146.83,ch:[174.61,220,261.63,329.63],mel:[349.23,440,493.88,523.25]},
+   {bass:98,ch:[123.47,146.83,185,220],mel:[293.66,349.23,392,466.16]}
  ];
- function scheduleMusicBar(){if(!musicOn||!audioCtx)return;const now=audioCtx.currentTime+.05,h=progressions[barIndex%progressions.length];barIndex++;
-   note(h.bass,now,4.8,.028,'sine',musicGain);
-   note(h.tones[0],now,4.4,.024,'sine',musicGain);
-   const pattern=[0,2,4,1,3,4,2,1];
-   pattern.forEach((idx,i)=>{
-     const t=now+i*.62;
-     note(h.tones[idx],t,1.35,.042,i%2?'sine':'triangle',musicGain);
-     if(i===2||i===6) note(h.tones[idx]/2,t+.12,1.8,.018,'sine',musicGain);
-   });
+ function scheduleMusicBar(){
+   if(!musicOn||!audioCtx)return;
+   const now=audioCtx.currentTime+.05,b=bars[barIndex%bars.length];barIndex++;
+   note(b.bass,now,3.9,.026,'sine',musicGain,.04);
+   chord(b.ch,now,.95,.013);
+   chord(b.ch.map(f=>f*1.002),now+2.05,.82,.009);
+   const swing=[0,.42,.78,1.22,1.58,2.02,2.38,2.82,3.18];
+   const picks=[0,1,2,1,3,2,1,0,2];
+   swing.forEach((off,i)=>note(b.mel[picks[i]],now+off,.34,.031,i%3===0?'triangle':'sine',musicGain,.018));
+   note(b.bass*2,now+1.18,.34,.013,'triangle',musicGain,.015);
+   note(b.bass*1.5,now+2.82,.34,.012,'triangle',musicGain,.015);
  }
- function startMusic(){ensureAudio();if(!audioCtx||!musicOn)return;if(audioCtx.state==='suspended')audioCtx.resume();if(musicStarted)return;musicStarted=true;scheduleMusicBar();musicTimer=setInterval(scheduleMusicBar,4960)}
+ function startMusic(){ensureAudio();if(!audioCtx||!musicOn)return;if(audioCtx.state==='suspended')audioCtx.resume();if(musicStarted)return;musicStarted=true;scheduleMusicBar();musicTimer=setInterval(scheduleMusicBar,3800)}
  function stopMusic(){musicStarted=false;if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
  function setMusic(on){musicOn=on;localStorage.setItem('ajonteMusic',on?'on':'off');musicBtn.textContent=on?'♫ Music: On':'♫ Music: Off';if(on)startMusic();else stopMusic()}
  musicBtn.addEventListener('click',()=>setMusic(!musicOn));
