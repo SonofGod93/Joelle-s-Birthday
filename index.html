@@ -40,13 +40,13 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
  const musicBtn=document.getElementById('siteMusic'),view=document.getElementById('siteView'),frame=document.getElementById('siteFrame'),title=document.getElementById('siteTitle');
  let ctx=null,master=null,musicOn=localStorage.getItem('ajonteMusic')!=='off',timer=null,started=false,bar=0;
  musicBtn.textContent=musicOn?'♫ Music: On':'♫ Music: Off';
- function init(){if(ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ctx=new AC();master=ctx.createGain();master.gain.value=.45;master.connect(ctx.destination)}
- function osc(freq,t,dur,vol,type='sine',cut=1800){init();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();o.type=type;o.frequency.value=freq;f.type='lowpass';f.frequency.value=cut;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(f);f.connect(g);g.connect(master);o.start(t);o.stop(t+dur+.05)}
+ function init(){if(ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ctx=new AC();master=ctx.createGain();master.gain.value=.34;master.connect(ctx.destination)}
+ function osc(freq,t,dur,vol,type='sine',cut=1800){init();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();o.type=type;o.frequency.value=freq;f.type='lowpass';f.frequency.value=cut;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(f);f.connect(g);g.connect(master);o.start(t);o.stop(t+dur+.05)}
  function noise(t,dur,vol,high=4000){init();if(!ctx)return;const len=Math.floor(ctx.sampleRate*dur),buf=ctx.createBuffer(1,len,ctx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<len;i++)data[i]=Math.random()*2-1;const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=buf;f.type='highpass';f.frequency.value=high;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);s.connect(f);f.connect(g);g.connect(master);s.start(t)}
- function kick(t,vol=.12){init();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(115,t);o.frequency.exponentialRampToValueAtTime(48,t+.16);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+.22);o.connect(g);g.connect(master);o.start(t);o.stop(t+.24)}
- function snare(t){noise(t,.15,.04,1000);osc(180,t,.11,.015,'triangle',900)}
- function hat(t,accent=false){noise(t,.055,accent?.016:.010,5500)}
- function chord(freqs,t,dur=.95,vol=.018){freqs.forEach((f,i)=>osc(f,t+i*.012,dur,vol,i%2?'triangle':'sine',1250))}
+ function kick(t,vol=.045){init();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();o.type='sine';o.frequency.setValueAtTime(88,t);o.frequency.exponentialRampToValueAtTime(46,t+.18);f.type='lowpass';f.frequency.value=180;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+.28);o.connect(f);f.connect(g);g.connect(master);o.start(t);o.stop(t+.3)}
+ function snare(t){noise(t,.18,.012,1450);osc(155,t,.13,.0045,'triangle',650)}
+ function hat(t,accent=false){noise(t,.045,accent?.0045:.0028,7000)}
+ function chord(freqs,t,dur=.95,vol=.018){freqs.forEach((f,i)=>osc(f,t+i*.012,dur,vol,i%2?'triangle':'sine',1100))}
  const progression=[
   {bass:65.41,ch:[130.81,164.81,196,246.94,293.66]},
   {bass:73.42,ch:[146.83,174.61,220,261.63,329.63]},
@@ -54,12 +54,12 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   {bass:61.74,ch:[123.47,146.83,185,220,293.66]}
  ];
  function scheduleBar(){if(!ctx||!musicOn)return;const t=ctx.currentTime+.06,b=progression[bar%progression.length];bar++;
-   chord(b.ch,t,.92,.012); chord(b.ch.map(f=>f*1.002),t+2.02,.72,.008);
-   osc(b.bass,t,1.2,.042,'sine',420);osc(b.bass*1.5,t+1.52,.7,.022,'sine',420);osc(b.bass,t+2.9,.78,.032,'sine',420);
-   kick(t,.10); kick(t+1.86,.075); kick(t+3.12,.09);
+   chord(b.ch,t,1.05,.013); chord(b.ch.map(f=>f*1.002),t+2.02,.82,.009);
+   osc(b.bass,t,1.35,.038,'sine',360);osc(b.bass*1.5,t+1.52,.78,.019,'sine',360);osc(b.bass,t+2.9,.88,.029,'sine',360);
+   kick(t,.042); kick(t+1.86,.028); kick(t+3.12,.036);
    snare(t+.94); snare(t+2.82);
    const hats=[0,.47,.94,1.41,1.88,2.35,2.82,3.29];hats.forEach((x,i)=>hat(t+x,i%2===1));
-   if(bar%2===0){const melody=[329.63,293.66,246.94,220];[.3,1.18,2.48,3.34].forEach((x,i)=>osc(melody[i],t+x,.32,.014,'triangle',1500))}
+   if(bar%2===0){const melody=[329.63,293.66,246.94,220];[.3,1.18,2.48,3.34].forEach((x,i)=>osc(melody[i],t+x,.4,.012,'triangle',1200))}
  }
  function startMusic(){init();if(!ctx||!musicOn)return;if(ctx.state==='suspended')ctx.resume();if(started)return;started=true;scheduleBar();timer=setInterval(scheduleBar,3760)}
  function stopMusic(){started=false;if(timer){clearInterval(timer);timer=null}}
