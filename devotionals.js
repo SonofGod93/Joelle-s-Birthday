@@ -1,5 +1,34 @@
 window.AJONTE_DEVOTIONALS = [
   {
+    date: "2026-08-23",
+    displayDate: "August 23, 2026",
+    title: "When Understanding Has to Bow",
+    reference: "Proverbs 3:5–6",
+    translation: "LEB",
+    verse: "Trust in Yahweh with all your heart, and do not rely on your own understanding. In all your ways acknowledge him, and he will make your paths straight.",
+    body: [
+      "To trust in Yahweh with all your heart is to put the full weight of yourself on what He has said and on who He has shown Himself to be.",
+      "There is something childlike about that kind of faith. A small child believes his father because, at that stage of life, his father is one of the primary measures by which he understands what is true. He does not possess enough knowledge to evaluate everything for himself. He trusts the one he knows.",
+      "That seems to be the posture Proverbs is calling us toward with God.",
+      "Believe what Yahweh says. Believe what Yahweh has revealed about Himself. And when what He has said collides with what you presently understand, do not make your understanding the final authority.",
+      "Jesus gives us an extraordinary picture of this in Gethsemane. He knew what obedience to the Father was about to cost Him. He prayed concerning the cup before Him, yet submitted Himself to the Father's will. The immediate human experience of suffering did not become the final judge of what should be done. The Father had already revealed the path: the suffering servant, the Lamb given for the salvation of others.",
+      "There are moments when obedience will make less sense to us than the alternative. That is where trust becomes more than agreement.",
+      "If I only obey God when His instructions already make sense to me, then I am not ultimately relying upon God. I am relying upon my understanding and allowing God to agree with it.",
+      "But Scripture says: ‘Do not rely on your own understanding.’",
+      "Then comes the comprehensiveness of the next command: ‘In all your ways acknowledge him.’ All means all.",
+      "God is not meant to become one portion of life alongside career, relationships, pleasure, money, thought, and ambition. He is the center from which all of those things are ordered.",
+      "I once encountered the picture of the Christian life as being eccentric in the literal sense—having a different center. Christ becomes the center of the wheel, and everything else becomes a spoke extending from Him. Nothing is permitted to establish an independent center of its own.",
+      "So in every way, acknowledge Him. Before I decide what is good, what does my Father call good? Before I decide which direction is right, what resembles His ways? Before I trust my interpretation of a circumstance, what has He already said?",
+      "And then comes one of the most comforting parts of the passage: ‘He will make your paths straight.’ Notice that it does not say that you will perfectly straighten your own path.",
+      "Imagine a child genuinely trying to follow his father. He will misunderstand sometimes. He will stumble. He will take an awkward step. But a good father who sees that child walking with him does not stand at the destination waiting for the child to somehow figure everything out alone. He corrects him as they go.",
+      "That is what makes our obedience participatory rather than self-saving. We walk. We listen. We trust. We respond. But God gives the growth. God corrects. God redirects. God straightens the path.",
+      "There are moments when faith feels like a child standing somewhere high while his father tells him to take the next step. The child may not understand the mechanics of what is happening. He only knows the person telling him to move.",
+      "He takes the step because he knows his father is there. That is trust. Not knowing that you will never stumble, but knowing who is with you if you do.",
+      "So keep walking. Your confidence does not have to rest in your ability to perfectly understand the road. It can rest in the Father who knows the road, walks it with you, and is able to straighten you as you go."
+    ],
+    reflection: "When God’s revealed will and my present understanding disagree, which one am I actually allowing to carry the weight of my life?"
+  },
+  {
     date: "2026-08-22",
     displayDate: "August 22, 2026",
     title: "Knowing the Ways of the Father",
