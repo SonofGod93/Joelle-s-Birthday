@@ -1,5 +1,36 @@
 window.AJONTE_DEVOTIONALS = [
   {
+    date: "2026-08-24",
+    displayDate: "August 24, 2026",
+    title: "Walk in What Has Been Revealed",
+    reference: "Isaiah 30:21",
+    translation: "LEB",
+    verse: "And your ears shall hear a word from behind you, saying, ‘This is the way; walk in it,’ when you go to your right and when you go to your left.",
+    body: [
+      "There is a responsibility that comes with revealed truth.",
+      "God does not have to bring us His revelations. He does not have to give us His oracles. He does not have to make His ways known to us. So when He does reveal something, it is not just so we can say we know more. It is not for knowledge’s sake alone.",
+      "It is so that we can walk in it.",
+      "Once God has made something known, then there is a responsibility on us to begin moving in that direction. We can no longer say we did not know. We have been shown the way, and now the question becomes whether we are going to walk in what has been revealed.",
+      "And I think that is what makes this verse so beautiful, because as we begin walking in the things God has shown us, we hear the Father lovingly guiding us further into the things of Him.",
+      "He says, ‘This is the way; walk in it.’",
+      "And then when we start drifting to the right or to the left, there is still a voice there. The Father is still guiding.",
+      "That matters because a father knows when a child is learning something that goes against the child’s nature. He knows when something is difficult for them. He knows when their instincts are pulling them one way, but he is teaching them another way.",
+      "A good father does not guide that child in a punishing way. He understands that they are learning.",
+      "He corrects them while they are moving. He says, ‘No, not that way. Come back this way.’ He is not shocked every time they take a wrong step. He knows the thing he is teaching them is not yet natural to them.",
+      "And I think God deals with us the same way.",
+      "There are things in God that go directly against our fallen nature. There are ways of thinking, ways of loving, ways of forgiving, ways of obeying, ways of denying ourselves that are not natural to us.",
+      "So He has to teach us how to walk in them.",
+      "That does not remove our responsibility. Once He reveals the truth, we are responsible to begin walking.",
+      "But it also means the walk is not ours to perfect by ourselves.",
+      "We take the step, and while we are taking it, the Father is still there. Still speaking. Still correcting. Still guiding us further into Himself.",
+      "And that is why revelation should never become something we collect.",
+      "God is not showing us truth so that we can admire how much we know. He is showing us truth so that our lives can begin to look like what He has revealed.",
+      "The purpose of the oracle is the walk. The purpose of knowing the way is to begin walking in it.",
+      "And as we walk, we learn to recognize that loving voice behind us saying: ‘This is the way. Walk in it.’"
+    ],
+    reflection: "What truth has God already revealed to me that I am responsible to begin walking in?"
+  },
+  {
     date: "2026-08-23",
     displayDate: "August 23, 2026",
     title: "When Understanding Has to Bow",
