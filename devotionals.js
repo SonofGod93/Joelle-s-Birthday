@@ -1,5 +1,29 @@
 window.AJONTE_DEVOTIONALS = [
   {
+    date: "2026-08-26",
+    displayDate: "August 26, 2026",
+    title: "Abide in Him",
+    reference: "John 15:4–5",
+    translation: "LEB",
+    verse: "Remain in me, and I in you. Just as the branch is not able to bear fruit by itself unless it remains in the vine, so neither can you unless you remain in me. I am the vine; you are the branches…",
+    body: [
+      "To remain in Christ is to abide in Him.",
+      "To dwell with Him and let Him dwell in you. To live with His Word before you until the fruit of your thoughts, your beliefs, your desires, and eventually your life begins to revolve around Him.",
+      "A branch bears the nature of what it is connected to.",
+      "So if Christ is the vine and we are the branches, then the life flowing through us should increasingly look like Christ.",
+      "That means keeping the things of God before your mind. Thinking on His Word. Seeing life through His kingdom. Learning to have the mind of Christ until His ways become the way you naturally begin to see things.",
+      "This is not about trying to manufacture righteousness through legalism.",
+      "It is about living in the Spirit.",
+      "You stop thinking like the world because you are abiding somewhere else. You stop allowing the world to determine what is good, what is true, what is valuable, and what life is supposed to look like because your mind is dwelling in another kingdom.",
+      "Remain in Me, and I in you.",
+      "Let Christ abide in you, and you abide in Christ.",
+      "When Christ is in you, fruit follows.",
+      "You begin to think differently. Believe differently. Desire differently. Live differently.",
+      "You become kingdom-minded because you are abiding in the King."
+    ],
+    reflection: "What am I abiding in long enough for it to shape the way I think, believe, and live?"
+  },
+  {
     date: "2026-08-24",
     displayDate: "August 24, 2026",
     title: "Walk in What Has Been Revealed",
