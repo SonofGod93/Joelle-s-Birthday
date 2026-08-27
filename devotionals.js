@@ -1,5 +1,33 @@
 window.AJONTE_DEVOTIONALS = [
   {
+    date: "2026-08-27",
+    displayDate: "August 27, 2026",
+    title: "The Mind of Christ",
+    reference: "Colossians 3:1–3",
+    translation: "LEB",
+    verse: "Therefore, if you have been raised together with Christ, seek the things above, where Christ is, seated at the right hand of God. Set your mind on the things above, not on the things on earth. For you have died, and your life is hidden with Christ in God.",
+    body: [
+      "To truly live this Christian life out, you almost have to start here: ‘For you have died, and your life is hidden with Christ in God.’",
+      "If you have been raised together with Christ, seek the things above. Set your mind on the things above and not on the things on earth.",
+      "That is having a kingdom mind—a kingdom-centered mind.",
+      "You want your life to be eccentric in the literal sense: God is in the middle, and everything else is a spoke on the wheel. Everything has to come back to Him.",
+      "That means having the mind of Christ on at all times and seeing things from a kingdom perspective instead of a worldly perspective.",
+      "We can have our own standards down here. We can have our own reasons for getting away with things. We can create our own morality. But none of that changes how God looks at the world.",
+      "When you read the Bible, understand the nature of God, learn how He looks at things, how He views them, and how He judges them, you put that mind on. You let His way of seeing become your default belief.",
+      "That is where discernment comes from, because you begin seeing things for what they really are.",
+      "We think reality as we see it and as it is given to us is reality, but God's Word is the ultimate reality upon which everything else coalesces.",
+      "The world can rename something. Culture can justify it. People can decide that something is acceptable. But if God has defined it differently, His Word is still the standard.",
+      "You do not bring God's reality down to the world. You bring the reality of His kingdom into the way you live in this world.",
+      "So you do not settle into carnal justifications or let the world define success, justice, relationships, identity, pleasure, fear, or even what is worth worrying about.",
+      "If you operate out of the flesh, you are not walking in the Spirit. The point is that it is not you who lives anymore, but Christ living through you by the Spirit He has given you.",
+      "The same disciples who ran when Jesus was crucified later stood and preached the gospel even when it meant death. What emboldened them was the Holy Spirit.",
+      "Jesus did not leave them and give them something of diminished value. He gave them God.",
+      "And that is what has to become real to us: God is within us. I die so that God can live through me. He works through my life in this world.",
+      "So put on the mind of Christ. Let His Word define reality. See this world from the kingdom instead of seeing the kingdom through the world."
+    ],
+    reflection: "Am I letting the world define reality for me, or am I seeing the world through the mind of Christ?"
+  },
+  {
     date: "2026-08-26",
     displayDate: "August 26, 2026",
     title: "Abide in Him",
