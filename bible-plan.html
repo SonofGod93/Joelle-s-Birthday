@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bible by New Year's</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#f5efe7;color:#312b2d}body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:24px 14px 50px}.wrap{max-width:780px;margin:0 auto}.hero{text-align:center;padding:20px 12px 24px}.kicker{font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#80648f}.hero h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(34px,8vw,58px);font-weight:500;line-height:1.02;margin:8px 0 10px;color:#5f466f}.hero p{max-width:590px;margin:0 auto;color:#665d62;line-height:1.55}.card{background:#fffaf4;border:1px solid rgba(95,70,111,.14);border-radius:24px;box-shadow:0 14px 36px rgba(72,52,81,.10);padding:20px;margin-bottom:16px}.setup{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#7a6874;margin:0 0 6px}.field select,.field input{width:100%;min-height:46px;border:1px solid #d9cdd5;border-radius:14px;background:#fff;color:#312b2d;padding:10px 12px;font:inherit}.wide{grid-column:1/-1}.btn{appearance:none;border:0;border-radius:999px;min-height:46px;padding:11px 18px;font-weight:900;cursor:pointer;background:#684a8f;color:#fff}.btn.secondary{background:#ede3f4;color:#684a8f}.btn.done{background:#536e59}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f4edf7;border-radius:18px;padding:14px;text-align:center}.stat strong{display:block;font-family:Georgia,'Times New Roman',serif;font-size:26px;color:#684a8f}.stat span{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#756b72}.progress-shell{height:12px;background:#eadfeb;border-radius:999px;overflow:hidden;margin:14px 0 8px}.progress-bar{height:100%;width:0;background:#7d5a9d;border-radius:999px;transition:width .25s ease}.today{border:2px solid rgba(104,74,143,.2);background:linear-gradient(180deg,#fffaf4,#f5ecfb)}.today h2,.plan-title{font-family:Georgia,'Times New Roman',serif;color:#684a8f;font-weight:500;margin:0 0 8px}.today-reading{font-family:Georgia,'Times New Roman',serif;font-size:clamp(22px,5vw,34px);line-height:1.2;margin:10px 0 14px}.muted{color:#756d72;font-size:13px;line-height:1.5}.days{display:grid;gap:9px}.day{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid #e4dbe1;background:#fffdf9;border-radius:16px;padding:12px}.day.today-row{border-color:#9674ad;box-shadow:0 0 0 2px rgba(150,116,173,.10)}.day.complete{opacity:.62;background:#f2eee9}.day input{width:21px;height:21px;accent-color:#684a8f}.date{font-size:12px;font-weight:900;color:#715e6b}.reading{font-size:14px;line-height:1.4}.badge{font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;background:#eee5f4;color:#684a8f;padding:6px 8px}.note{text-align:center;color:#7a6f75;font-size:12px;line-height:1.5;padding:8px 16px}.hidden{display:none!important}
+@media(max-width:560px){body{padding:14px 10px 36px}.card{padding:16px;border-radius:20px}.setup{grid-template-columns:1fr}.wide{grid-column:auto}.summary{grid-template-columns:1fr 1fr}.summary .stat:last-child{grid-column:1/-1}.day{grid-template-columns:auto 1fr}.badge{grid-column:2;justify-self:start}.hero{padding-top:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker">A little extra gift 📖</div>
+    <h1>Bible by New Year's</h1>
+    <p>A simple plan to keep moving from where you are now all the way through Revelation by December 31, 2026 — one day at a time.</p>
+  </section>
+
+  <section class="card">
+    <div class="setup">
+      <div class="field"><label for="book">Starting book</label><select id="book"></select></div>
+      <div class="field"><label for="chapter">Starting chapter</label><select id="chapter"></select></div>
+      <div class="field"><label for="startDate">Plan begins</label><input id="startDate" type="date" value="2026-09-01"></div>
+      <div class="field"><label for="targetDate">Finish line</label><input id="targetDate" type="date" value="2026-12-31" readonly></div>
+    </div>
+    <div class="actions"><button class="btn" id="build">Build my plan</button><button class="btn secondary" id="reset">Reset progress</button></div>
+    <p class="muted" style="margin-bottom:0">I started this at <strong>Numbers 15</strong> because that's the best guess right now. If you're actually a few chapters ahead or behind, change it above and the whole plan adjusts automatically.</p>
+  </section>
+
+  <section class="card" id="summaryCard">
+    <div class="summary">
+      <div class="stat"><strong id="chaptersLeft">0</strong><span>chapters in plan</span></div>
+      <div class="stat"><strong id="dailyPace">0</strong><span>about / day</span></div>
+      <div class="stat"><strong id="daysLeft">0</strong><span>reading days</span></div>
+    </div>
+    <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="muted" id="progressText" style="text-align:center">0% complete</div>
+  </section>
+
+  <section class="card today" id="todayCard">
+    <div class="kicker">Today's reading</div>
+    <h2 id="todayDate">—</h2>
+    <div class="today-reading" id="todayReading">—</div>
+    <button class="btn done" id="todayDone">✓ Mark today complete</button>
+    <p class="muted" id="todayNote" style="margin-bottom:0"></p>
+  </section>
+
+  <section class="card">
+    <h2 class="plan-title">The Plan</h2>
+    <div class="days" id="days"></div>
+  </section>
+
+  <div class="note">Your progress stays saved on this device. Missing a day doesn't erase anything — just pick back up and keep going.</div>
+</div>
+<script>
+(()=>{
+const books=[
+['Genesis',50],['Exodus',40],['Leviticus',27],['Numbers',36],['Deuteronomy',34],['Joshua',24],['Judges',21],['Ruth',4],['1 Samuel',31],['2 Samuel',24],['1 Kings',22],['2 Kings',25],['1 Chronicles',29],['2 Chronicles',36],['Ezra',10],['Nehemiah',13],['Esther',10],['Job',42],['Psalms',150],['Proverbs',31],['Ecclesiastes',12],['Song of Solomon',8],['Isaiah',66],['Jeremiah',52],['Lamentations',5],['Ezekiel',48],['Daniel',12],['Hosea',14],['Joel',3],['Amos',9],['Obadiah',1],['Jonah',4],['Micah',7],['Nahum',3],['Habakkuk',3],['Zephaniah',3],['Haggai',2],['Zechariah',14],['Malachi',4],['Matthew',28],['Mark',16],['Luke',24],['John',21],['Acts',28],['Romans',16],['1 Corinthians',16],['2 Corinthians',13],['Galatians',6],['Ephesians',6],['Philippians',4],['Colossians',4],['1 Thessalonians',5],['2 Thessalonians',3],['1 Timothy',6],['2 Timothy',4],['Titus',3],['Philemon',1],['Hebrews',13],['James',5],['1 Peter',5],['2 Peter',3],['1 John',5],['2 John',1],['3 John',1],['Jude',1],['Revelation',22]
+];
+const $=s=>document.querySelector(s),bookEl=$('#book'),chapterEl=$('#chapter'),startEl=$('#startDate'),targetEl=$('#targetDate'),daysEl=$('#days');
+let assignments=[],signature='';
+function iso(d){return d.toISOString().slice(0,10)}
+function localIsoNow(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function dateLabel(s){return new Date(s+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',weekday:'short'})}
+function loadSetup(){const saved=JSON.parse(localStorage.getItem('biblePlanSetup')||'null');return saved||{book:'Numbers',chapter:15,startDate:'2026-09-01'}}
+function populateBooks(){books.forEach(([name])=>bookEl.add(new Option(name,name)));const setup=loadSetup();bookEl.value=setup.book||'Numbers';populateChapters();chapterEl.value=String(setup.chapter||15);startEl.value=setup.startDate||'2026-09-01'}
+function populateChapters(){const max=(books.find(b=>b[0]===bookEl.value)||books[0])[1];const old=+chapterEl.value||1;chapterEl.innerHTML='';for(let i=1;i<=max;i++)chapterEl.add(new Option(i,i));chapterEl.value=String(Math.min(old,max))}
+function chapterList(){const startBook=bookEl.value,startChapter=+chapterEl.value,idx=books.findIndex(b=>b[0]===startBook),out=[];for(let i=idx;i<books.length;i++){const [name,max]=books[i];for(let c=(i===idx?startChapter:1);c<=max;c++)out.push({book:name,chapter:c})}return out}
+function dateList(){const s=new Date(startEl.value+'T12:00:00'),e=new Date(targetEl.value+'T12:00:00'),out=[];if(isNaN(s)||s>e)return out;for(let d=new Date(s);d<=e;d.setDate(d.getDate()+1))out.push(iso(d));return out}
+function compress(items){if(!items.length)return '—';const parts=[];let i=0;while(i<items.length){const b=items[i].book,start=items[i].chapter,end=start;let j=i+1,last=end;while(j<items.length&&items[j].book===b&&items[j].chapter===last+1){last=items[j].chapter;j++}parts.push(b+' '+(last===start?start:start+'–'+last));i=j}return parts.join(' • ')}
+function progressKey(date){return 'biblePlanDone:'+signature+':'+date}
+function isDone(date){return localStorage.getItem(progressKey(date))==='1'}
+function setDone(date,on){if(on)localStorage.setItem(progressKey(date),'1');else localStorage.removeItem(progressKey(date))}
+function build(){const chapters=chapterList(),dates=dateList();if(!dates.length){alert('Choose a valid start date before December 31, 2026.');return}signature=[bookEl.value,chapterEl.value,startEl.value,targetEl.value].join('|');localStorage.setItem('biblePlanSetup',JSON.stringify({book:bookEl.value,chapter:+chapterEl.value,startDate:startEl.value}));assignments=[];let cursor=0;for(let i=0;i<dates.length;i++){const left=chapters.length-cursor,days=dates.length-i,take=Math.ceil(left/days);assignments.push({date:dates[i],chapters:chapters.slice(cursor,cursor+take)});cursor+=take}
+ $('#chaptersLeft').textContent=chapters.length;$('#daysLeft').textContent=dates.length;$('#dailyPace').textContent=(chapters.length/dates.length).toFixed(1).replace('.0','');render();}
+function render(){const today=localIsoNow();daysEl.innerHTML='';assignments.forEach(a=>{const row=document.createElement('label');row.className='day'+(a.date===today?' today-row':'')+(isDone(a.date)?' complete':'');const cb=document.createElement('input');cb.type='checkbox';cb.checked=isDone(a.date);cb.addEventListener('change',()=>{setDone(a.date,cb.checked);render()});const body=document.createElement('div');body.innerHTML='<div class="date">'+dateLabel(a.date)+'</div><div class="reading">'+compress(a.chapters)+'</div>';row.append(cb,body);if(a.date===today){const badge=document.createElement('span');badge.className='badge';badge.textContent='Today';row.append(badge)}daysEl.append(row)});renderToday(today);renderProgress()}
+function renderToday(today){let a=assignments.find(x=>x.date===today);if(!a){const firstOpen=assignments.find(x=>!isDone(x.date));a=firstOpen||assignments[assignments.length-1]}
+ if(!a)return;$('#todayDate').textContent=dateLabel(a.date);$('#todayReading').textContent=compress(a.chapters);const btn=$('#todayDone');btn.dataset.date=a.date;btn.textContent=isDone(a.date)?'✓ Completed':'✓ Mark today complete';btn.disabled=isDone(a.date);$('#todayNote').textContent=a.date===today?'You only have to handle today’s portion. Tomorrow can wait.':(today<a.date?'Your plan has not started yet. Here is your first reading.':'Here is the next unfinished reading in your plan.')}
+function renderProgress(){const done=assignments.filter(a=>isDone(a.date)).length,pct=assignments.length?Math.round(done/assignments.length*100):0;$('#progressBar').style.width=pct+'%';$('#progressText').textContent=pct+'% complete • '+done+' of '+assignments.length+' days finished'}
+bookEl.addEventListener('change',populateChapters);$('#build').addEventListener('click',build);$('#reset').addEventListener('click',()=>{if(!confirm('Clear all checkmarks for this reading plan?'))return;assignments.forEach(a=>setDone(a.date,false));render()});$('#todayDone').addEventListener('click',e=>{setDone(e.currentTarget.dataset.date,true);render()});
+populateBooks();build();
+})();
+</script>
+</body>
+</html>
