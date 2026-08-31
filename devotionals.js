@@ -1,5 +1,37 @@
 window.AJONTE_DEVOTIONALS = [
   {
+    date: "2026-08-31",
+    displayDate: "August 31, 2026",
+    title: "Reflecting His Glory",
+    reference: "2 Corinthians 3:17–18",
+    translation: "LEB",
+    verse: "Now the Lord is the Spirit, and where the Spirit of the Lord is, there is freedom. And we all, with unveiled face, reflecting the glory of the Lord, are being transformed into the same image from glory into glory, just as from the Lord, the Spirit.",
+    body: [
+      "When Christ abides in you, He is doing something inside of you.",
+      "There is a purging. A refining. God is working through those places in us that do not look like Him, burning away what does not belong, bringing us back into the image we were created to bear.",
+      "And then Paul says we are ‘reflecting the glory of the Lord.’",
+      "That means whatever glory comes through your life is not yours.",
+      "You are reflecting Someone.",
+      "Christ is still visible on this earth today, but He is visible through you.",
+      "You are His ambassador. The same Christ who walked this earth now lives in His people by His Spirit, and people should be able to encounter something of Him through the way you live.",
+      "Through the way you love. Through the way you speak. Through the way you endure. Through the way you forgive. Through the way you stand for truth.",
+      "His glory is being reflected through your life.",
+      "But always give credit to whom credit is due.",
+      "A mirror does not create the light it reflects.",
+      "If there is patience in me, God produced it. If there is wisdom in me, God gave it. If there is righteousness, love, mercy, courage, or anything else in my life that looks like Christ, I am reflecting the glory of the One who is transforming me.",
+      "And that transformation is continuing ‘from glory into glory.’",
+      "God does not put His Spirit inside of you and leave you exactly as you were.",
+      "He changes you. He restores His image in you.",
+      "And as He does, Christ becomes more visible through the life you live.",
+      "That is part of what it means to represent Him in this world.",
+      "Not creating your own glory. Not drawing attention to yourself.",
+      "But allowing God to do such a work in you that when people encounter your life, they are seeing the reflection of Someone greater.",
+      "Christ is visible on this earth today.",
+      "And He intends to be visible through you."
+    ],
+    reflection: "If someone encountered Christ only through the way I lived today, what would they see?"
+  },
+  {
     date: "2026-08-29",
     displayDate: "August 29, 2026",
     title: "Christ Lives in Me",
